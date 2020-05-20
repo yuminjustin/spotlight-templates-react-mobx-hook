@@ -1,6 +1,5 @@
 import React from "react";
 import { useObserver, inject } from "mobx-react";
-// import { observer } from 'mobx-react';
 import Item from "./item";
 
 const List = inject(
@@ -9,9 +8,10 @@ const List = inject(
 )((props) => {
   const { todos, types } = props;
 
-  if (todos.list.length === 0) return "";
-  else
-    return useObserver(() => (
+  return useObserver(() =>
+    todos.list.length === 0 ? (
+      ""
+    ) : (
       <ul>
         {todos.list
           .filter((todo) => {
@@ -29,7 +29,8 @@ const List = inject(
             return <Item todo={todo} key={key} />;
           })}
       </ul>
-    ));
+    )
+  );
 });
 
 export default List;
